@@ -1,31 +1,31 @@
 //
-//  DTSectionModel+CollectionViewHeadersFooters.m
-//  DTCollectionViewManagerExample
+//  ANSectionModel+CollectionViewHeadersFooters.m
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 12.10.14.
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
 
-#import "DTSectionModel+CollectionViewHeadersFooters.h"
+#import "ANSectionModel+CollectionViewHeadersFooters.h"
 
-@implementation DTSectionModel (CollectionViewHeadersFooters)
+@implementation ANSectionModel (CollectionViewHeadersFooters)
 
--(id)collectionHeaderModel
+- (id)collectionHeaderModel
 {
     return [self supplementaryModelOfKind:UICollectionElementKindSectionHeader];
 }
 
--(id)collectionFooterModel
+- (id)collectionFooterModel
 {
     return [self supplementaryModelOfKind:UICollectionElementKindSectionFooter];
 }
 
--(void)setCollectionSectionHeader:(id)model
+- (void)setCollectionSectionHeader:(id)model
 {
     [self setSupplementaryModel:model forKind:UICollectionElementKindSectionHeader];
 }
 
--(void)setCollectionSectionFooter:(id)model
+- (void)setCollectionSectionFooter:(id)model
 {
     [self setSupplementaryModel:model forKind:UICollectionElementKindSectionFooter];
 }

@@ -1,18 +1,18 @@
 //
-//  DTSectionModel+CollectionViewHeadersFooters.h
-//  DTCollectionViewManagerExample
+//  ANSectionModel+CollectionViewHeadersFooters.h
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 12.10.14.
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
 
-#import "DTSectionModel.h"
+#import "ANSectionModel.h"
 
 /**
  Convenience category for section headers and footers in UICollectionViewFlowLayout.
  */
 
-@interface DTSectionModel (CollectionViewHeadersFooters)
+@interface ANSectionModel (CollectionViewHeadersFooters)
 
 /**
  Retrieve collection header model for current section.

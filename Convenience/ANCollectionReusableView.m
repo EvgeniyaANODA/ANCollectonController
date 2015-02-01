@@ -1,6 +1,6 @@
 //
-//  DTCollectionViewCell.m
-//  DTCollectionViewManagerExample
+//  ANCollectionReusableView.m
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 03.08.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -23,22 +23,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionViewCell.h"
+#import "ANCollectionReusableView.h"
 
-@implementation DTCollectionViewCell
+@implementation ANCollectionReusableView
 
--(void)updateWithModel:(id)model
+- (void)updateWithModel:(id)model
 {
-    NSString * reason = [NSString stringWithFormat:@"cell %@ should implement updateWithModel: method\n",
-                         NSStringFromClass([self class])];
+    NSString * reason = [NSString stringWithFormat:@"view %@ should implement updateWithModel: method\n",
+                                                   NSStringFromClass([self class])];
     NSException * exc =
-    [NSException exceptionWithName:@"DTCollectionViewManager API exception"
-                            reason:reason
-                          userInfo:nil];
+            [NSException exceptionWithName:@"ANCollectionViewManager API exception"
+                                    reason:reason
+                                  userInfo:nil];
     [exc raise];
 }
 
--(id)model
+- (id)model
 {
     return nil;
 }

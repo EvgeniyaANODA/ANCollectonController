@@ -1,6 +1,6 @@
 //
-//  DTCollectionReusableView.m
-//  DTCollectionViewManagerExample
+//  ANCollectionViewCell.h
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 03.08.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -23,24 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionReusableView.h"
+#import "ANModelTransfer.h"
 
-@implementation DTCollectionReusableView
-
-- (void)updateWithModel:(id)model
-{
-    NSString * reason = [NSString stringWithFormat:@"view %@ should implement updateWithModel: method\n",
-                                                   NSStringFromClass([self class])];
-    NSException * exc =
-            [NSException exceptionWithName:@"DTCollectionViewManager API exception"
-                                    reason:reason
-                                  userInfo:nil];
-    [exc raise];
-}
-
-- (id)model
-{
-    return nil;
-}
+/**
+ `ANCollectionViewCell` is a convinience UICollectionViewCell subclass, conforming to `DTModelTransfer` protocol.
+ */
+@interface ANCollectionViewCell : UICollectionViewCell <ANModelTransfer>
 
 @end

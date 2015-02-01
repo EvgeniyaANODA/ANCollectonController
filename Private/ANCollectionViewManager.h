@@ -1,6 +1,6 @@
 //
-//  DTCollectionViewManager.h
-//  DTCollectionViewManagerExample
+//  ANCollectionViewManager.h
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 21.07.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -23,11 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionViewController.h"
+#import "ANCollectionViewController.h"
 #import "DTModelTransfer.h"
 
 #import "DTModelStorage.h"
-#import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
+#import "ANMemoryStorage+ANCollectionViewManagerAdditions.h"
 
-#import "DTCollectionViewCell.h"
-#import "DTCollectionReusableView.h"
+#import "ANCollectionViewCell.h"
+#import "ANCollectionReusableView.h"

@@ -1,47 +1,35 @@
 //
-//  DTMemoryStorage+DTCollectionViewManagerAdditions.m
-//  DTCollectionViewManagerExample
+//  ANMemoryStorage+ANCollectionViewManagerAdditions.m
+//  ANCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 21.08.14.
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
 
-#import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
-#import "DTCollectionViewControllerEvents.h"
 
-@interface DTMemoryStorage()
+#import "ANMemoryStorage+ANCollectionViewManagerAdditions.h"
+#import "ANCollectionViewControllerEvents.h"
+#import "ANLogger.h"
 
-// private methods and properties on DTMemoryStorage, that we need access in this class
--(DTSectionModel *)getValidSection:(NSUInteger)sectionNumber;
-@property (nonatomic, retain) DTStorageUpdate * currentUpdate;
+@interface ANMemoryStorage()
+
+@property (nonatomic, retain) ANStorageUpdate * currentUpdate;
+
+// private methods and properties on ANMemoryStorage, that we need access in this class
+-(ANSectionModel *)getValidSection:(NSUInteger)sectionNumber;
+
 -(void)startUpdate;
 -(void)finishUpdate;
+
 @end
 
-@protocol DTCollectionViewStorageUpdating <DTStorageUpdating>
+@protocol ANCollectionViewStorageUpdating <ANStorageUpdatingInterface>
 
 -(void)performAnimatedUpdate:(void(^)(UICollectionView *))animationBlock;
 
 @end
 
-@implementation DTMemoryStorage(DTCollectionViewManagerAdditions)
+@implementation ANMemoryStorage(ANCollectionViewManagerAdditions)
 
 -(void)moveCollectionItemAtIndexPath:(NSIndexPath *)sourceIndexPath
                          toIndexPath:(NSIndexPath *)destinationIndexPath;
@@ -52,26 +40,21 @@
     
     if (!sourceIndexPath || !item)
     {
-        if ([self loggingEnabled])
-        {
-            NSLog(@"DTCollectionViewManager: source indexPath should not be nil when moving collection item");
-        }
+        ANLogWarning(@"ANCollectionViewManager: source indexPath should not be nil when moving collection item");
         return;
     }
-    DTSectionModel * sourceSection = [self getValidSection:sourceIndexPath.section];
-    DTSectionModel * destinationSection = [self getValidSection:destinationIndexPath.section];
+    ANSectionModel * sourceSection = [self getValidSection:sourceIndexPath.section];
+    ANSectionModel * destinationSection = [self getValidSection:destinationIndexPath.section];
     
     if ([destinationSection.objects count] < destinationIndexPath.row)
     {
-        if ([self loggingEnabled])
-        {
-            NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %@ items in section",destinationIndexPath,@([destinationSection.objects count]));
-        }
+        
+        ANLogWarning(@"ANCollectionViewManager: failed moving item to indexPath: %@, only %@ items in section",destinationIndexPath,@([destinationSection.objects count]));
         self.currentUpdate = nil;
         return;
     }
     
-    [(id<DTCollectionViewStorageUpdating>)self.delegate performAnimatedUpdate:^(UICollectionView *collectionView) {
+    [(id<ANCollectionViewStorageUpdating>)self.delegate performAnimatedUpdate:^(UICollectionView *collectionView) {
         NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
         [self.currentUpdate.insertedSectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
             if ([collectionView numberOfSections] <= idx)
@@ -105,12 +88,12 @@
 -(void)moveCollectionViewSection:(NSInteger)fromSection toSection:(NSInteger)toSection
 {
     [self startUpdate];
-    DTSectionModel * validSectionFrom = [self getValidSection:fromSection];
+    ANSectionModel * validSectionFrom = [self getValidSection:fromSection];
     [self getValidSection:toSection];
     
     [self.currentUpdate.insertedSectionIndexes removeIndex:toSection];
     
-    [(id<DTCollectionViewStorageUpdating>)self.delegate performAnimatedUpdate:^(UICollectionView * collectionView) {
+    [(id<ANCollectionViewStorageUpdating>)self.delegate performAnimatedUpdate:^(UICollectionView * collectionView) {
         if (self.sections.count > collectionView.numberOfSections)
         {
             //Section does not exist, moving section causes many sections to change, so we just reload
