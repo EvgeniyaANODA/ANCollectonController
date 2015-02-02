@@ -15,6 +15,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc = true
 
   spec.dependency 'ANStorage', '~> 1.0'
+  spec.dependency 'ANLogger', '~> 1.0'
 
   spec.ios.deployment_target = '7.0'
 end
