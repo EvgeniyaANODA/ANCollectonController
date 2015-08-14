@@ -50,6 +50,8 @@
 - (void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
     NSString * cellClassString = [ANRuntimeHelper classStringForClass:cellClass];
+    NSParameterAssert(cellClassString);
+    cellClassString = cellClassString ? : @"";
     
     [[self.delegate collectionView] registerClass:cellClass forCellWithReuseIdentifier:cellClassString];
     
@@ -61,7 +63,9 @@
                      forModelClass:(Class)modelClass
 {
     NSString * supplementaryClassString = [ANRuntimeHelper classStringForClass:supplementaryClass];
-
+    NSParameterAssert(supplementaryClass);
+    supplementaryClass = supplementaryClass ? : @"";
+    
     [[self.delegate collectionView] registerClass:supplementaryClass
                        forSupplementaryViewOfKind:kind
                               withReuseIdentifier:supplementaryClassString];
@@ -73,6 +77,8 @@
                                             atIndexPath:(NSIndexPath *)indexPath
 {
     NSString * classString = self.cellMappings[[ANRuntimeHelper modelStringForClass:[modelItem class]]];
+    NSParameterAssert(classString);
+    classString = classString ? : @"";
     return [[self.delegate collectionView]
                 dequeueReusableCellWithReuseIdentifier:classString
                                           forIndexPath:indexPath];
